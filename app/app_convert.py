@@ -108,6 +108,19 @@ class dataFormat(wx.Frame):
         self.Bind(wx.EVT_CHECKBOX, self.checkBotton)
         
         #######################################################################################
+        #                                    Type of the data
+        #######################################################################################
+        
+        #Op1 if is only x:y data
+        self.Op1 = wx.CheckBox(Rpanel, id=102, label = "points", pos = (10, 130))
+        self.Op2 = wx.CheckBox(Rpanel, id=103, label = "x errorbars", pos = (120, 130))
+        self.Op3 = wx.CheckBox(Rpanel, id=104, label = "y errorbars", pos = (120, 150))
+        self.Op4 = wx.CheckBox(Rpanel, id=105, label = "xy errorbars", pos = (10, 150))
+        self.Bind(wx.EVT_CHECKBOX, self.checkBotton)
+        
+        
+        
+        #######################################################################################
         ##                                                                                   ##
         ##                                  Botton menus                                     ##
         ##                                                                                   ##
@@ -183,8 +196,25 @@ class dataFormat(wx.Frame):
         '''
         Command to check the value box
         '''
-        
-        print event.GetEventObject().GetValue()
+        # The box checked from the data input are mutually excluyent
+        if event.GetEventObject().GetId() == 102:
+            self.Op2.SetValue(False)
+            self.Op3.SetValue(False)
+            self.Op4.SetValue(False)
+        elif event.GetEventObject().GetId() == 103:
+            self.Op1.SetValue(False)
+            self.Op3.SetValue(False)
+            self.Op4.SetValue(False)
+        elif event.GetEventObject().GetId() == 104:
+            self.Op1.SetValue(False)
+            self.Op2.SetValue(False)
+            self.Op4.SetValue(False)
+        elif event.GetEventObject().GetId() == 105:
+            self.Op1.SetValue(False)
+            self.Op2.SetValue(False)
+            self.Op3.SetValue(False)
+        else:
+            print event.GetEventObject().GetValue()
     
     
     def save(self, event):
